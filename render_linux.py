@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""欣竹文化报：A3 200dpi 四版两栏活版式（无栏线、段首缩进、图文留距）"""
+"""欣竹文化报：A4 200dpi 两栏活版式（无栏线、段首缩进、图文留距）"""
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 2339, 3307           # A3 @200dpi
@@ -403,30 +403,29 @@ img1 = Image.new("RGB", (W, H), "white")
 d1 = ImageDraw.Draw(img1)
 
 y = masthead(d1)
-y = page_label(d1, y, "第 1 版 · 校园 活动")
+y = page_label(d1, y, "第 1 版 · 校园新闻")
 
 flow = Flow(d1, img1, y, H - MB - 50)
-body_font = fnt("NotoSansSC-Regular", 30)
-LH = 48
-IND = 72  # 段首空两格
+body_font = fnt("NotoSansSC-Regular", 24)
+LH = 37
+IND = 66  # 段首空两格
 
 # —— 文章一（主稿）：抢零食大赛
 article_head(d1, flow, "趣味互动点燃校园活力", "——我校“乐动比赛日”之抢零食大赛欢乐开赛")
-right_text(d1, flow.y, "本报讯(记者 校报记者团)", fnt("NotoSansSC-Regular", 23), GRAY)
-flow.y += 50
+right_text(d1, flow.y, "本报讯(记者 校报记者团)", fnt("NotoSansSC-Regular", 22), GRAY)
+flow.y += 48
 flow.top = flow.y  # 右栏从报头下方起排，避免压到署名行
 
 # 两张绕栏图跨两栏中缝，一上一下，中间留白隔开
 _img_y0 = flow.y
-flow.image(PHOTO1, col1_x + COLW - 320, _img_y0 + 150, 640, 270, "起跑冲刺，同学们蓄势待发", CAP)
-flow.image(PHOTO3, col1_x + COLW - 320, _img_y0 + 600, 640, 250, "班主任老师为参赛同学递上零食", CAP)
+flow.image(PHOTO1, col1_x + COLW - 320, _img_y0 + 150, 640, 290, "起跑冲刺，同学们蓄势待发", CAP)
 
 flow.para("为进一步丰富在校师生的课余文化生活，营造轻松鲜活的校园氛围，10月8日下午，由我校体育组主办的“乐动比赛日”主题活动核心项目——“抢零食大赛”在我校操场正式拉开帷幕，240名来自四个年级的初中学生报名参赛，活动现场欢声笑语不断，成为秋日校园里一道独特的活力风景线。", body_font, LH, indent=IND)
 flow.para("本次大赛跳出传统文体赛事的固有框架，以“释放压力、共享欢乐”为核心设计理念，契合“乐动比赛日”让学生走下座位、动起来玩起来的活动定位。比赛分为四轮，各个年级各比赛一轮，活动现场的参赛区域内，每轮会放置各类零食放置在操场中央，各班班主任老师与学生配合，由老师传递零食，学生们接力运送零食来争取获得更多的零食数目。最后在各年级之间决出胜负。各班获得的零食也能带回班级与同学们分享。", body_font, LH, indent=IND)
 flow.para("比赛现场气氛持续升温，不同年级、不同班级的参赛选手各展所长：观赛的同学们自发在赛场边围成圆圈，为参赛选手加油呐喊，观赛老师们掏出手机记录下欢乐瞬间，现场时不时爆发出阵阵笑声与欢呼声。同学们在奔跑冲刺中挥洒汗水，在配合接力里增进默契，同班级的伙伴也在你追我赶的比拼中加深了友谊。参赛同学们多数表示：这次比赛竞争很激烈，但也是有史以来举办得最好的一次乐动比赛。老师们的参与增进了新鲜感。大家争取回来的零食与同学们分享，进一步增进了同学们之间的友谊。", body_font, LH, indent=IND)
 flow.para("此次抢零食大赛不仅为同学们提供了释放学业压力、舒展身心的平台，更让大家在轻松有趣的互动中感受到了校园生活的别样乐趣，充分展现了我校学子青春昂扬、团结向上的精神风貌。不少参赛同学赛后表示，这是自己参加过最有意思的校园活动，在跑步接力抢零食的过程中，既玩得尽兴，又收获了和同学、老师相处的珍贵回忆，希望未来学校能举办更多这类充满趣味的校园活动。本次“乐动比赛日”抢零食大赛在同学们的欢声笑语中圆满落下帷幕，接下来我校还将推出更多贴合学生需求的趣味文体活动，持续打造活力满格的校园文化，让同学们在学习之余收获更多欢乐与成长。", body_font, LH, indent=IND)
 
-flow.para("作者：王馨恬、顾益谦、雷舒雯、都朔祎、施逸文、丁梓杰", fnt("NotoSansSC-Regular", 23), LH, indent=0, justify=False, fill=GRAY, after=8)
+flow.para("作者：王馨恬、顾益谦、雷舒雯、都朔祎、施逸文、丁梓杰", fnt("NotoSansSC-Regular", 21), LH, indent=0, justify=False, fill=GRAY, after=8)
 
 # —— 2 班来稿 · 独立成篇
 section_label(d1, flow, "赛场 · 侧记")
@@ -438,10 +437,20 @@ flow.para("比赛过程中，同学们尽情投入，尽显少年活力。各班
 flow.para("短短几分钟的比拼转瞬即逝，在裁判老师公正的统计下，本次抢零食大战落下帷幕，多个班级凭借高效的协作和良好的秩序斩获佳绩。赛后，参赛同学们手持满满的“战利品”，脸上洋溢着灿烂的笑容。大家相互分享零食、交流比赛趣事，校园里处处洋溢着温馨欢乐的氛围。有同学表示，这场特别的零食大战，不仅收获了美味的零食，更在轻松的游戏中放松了身心，增进了和同学之间的情谊。", body_font, LH, indent=IND)
 flow.para("本次抢零食趣味赛事，是我校落实素质教育、打造多彩校园生活的生动缩影。没有激烈的竞技压力，却有满满的快乐与温暖，既锻炼了同学们的反应能力与协作能力，又有效舒缓了学业压力。相信同学们将带着赛场收获的快乐与活力，以更饱满的热情、更昂扬的状态投入到今后的学习生活中，不负时光，向阳成长。", body_font, LH, indent=IND)
 # 署名行避开中缝图片，避免在窄栏里折出孤字
-_cover_bottom = _img_y0 + 600 + 250 + 68 + 17
+_cover_bottom = _img_y0 + 150 + 290 + 68 + 17
 if flow.col == 1 and flow.y < _cover_bottom:
     flow.y = _cover_bottom + 4
-flow.para("作者：王怡蓓、严茹萱、陈艺嘉、黄昕甜、王睿琪、王博嘉", fnt("NotoSansSC-Regular", 23), LH, indent=0, justify=False, fill=GRAY, after=8)
+flow.para("作者：王怡蓓、严茹萱、陈艺嘉、黄昕甜、王睿琪、王博嘉", fnt("NotoSansSC-Regular", 21), LH, indent=0, justify=False, fill=GRAY, after=8)
+
+# —— 师者访谈：叶枫
+section_label(d1, flow, "师者 · 访谈")
+article_head(d1, flow, "深耕教育沃土　坚守育人初心", "——专访教育工作者叶枫")
+flow.para("近日，深耕教育领域多年的教育工作者叶枫，结合自身多年任职经历，分享了从教路上的成长感悟、思想蜕变，以及对新时代教育发展的独到见解，娓娓讲述自己与教育相伴的温暖历程与责任担当。", body_font, LH, indent=IND)
+flow.para("谈及任职期间影响自己最深的人和事，叶枫眼中满是温情。他表示，教育从来不是孤军奋战，一代代教育前辈的坚守与一届届学生的成长，是他深耕教育的不竭动力。从业初期，身边资深教师深耕课堂、潜心育人，不放弃任何一名学生，耐心打磨教学细节、用心陪伴学生成长，这份纯粹的教育初心深深感染了他。同时，无数学生的蜕变也让他备受触动。看着懵懂孩童在引导下明事理、学本领，成长为有担当、有温度的少年，这些温暖瞬间不断坚定他扎根教育、默默奉献的信念，让他始终心怀热爱、步履不停。", body_font, LH, indent=IND)
+flow.para("历经多年深耕，谈及对教育工作认知的变化，叶枫坦言自己完成了从“教书”到“育人”的深度蜕变。初入教育行业时，他更多聚焦于课堂教学、知识传授，以提升教学质量、夯实学生学业基础为核心目标。随着任职年限增长、教学经验积累，他深刻认识到，教育的本质是立德树人。知识传授只是基础，更重要的是塑造学生健全人格、培养良好品德、锤炼综合素养。如今的他，在教学中兼顾因材施教，尊重学生个性差异，注重激发学生潜能，既做知识的传授者，更做学生成长的引导者、陪伴者和守护者。", body_font, LH, indent=IND)
+flow.para("针对近年来我国教育体系的快速发展，叶枫有着切身且深刻的体会。他表示，新时代教育实现了全方位、高质量的升级，变化看得见、摸得着。首先是教育资源愈发均衡，城乡教育差距持续缩小，优质师资、线上课程、智慧设备逐步普及基层校园，让每个孩子都能享有公平而有质量的教育。其次，教育理念持续革新，素质教育全面落地，摒弃唯分数论，注重德智体美劳全面发展，更加契合新时代人才培养需求。此外，教育数字化转型成效显著，智慧课堂、多媒体教学融入日常教学，让教学形式更丰富、育人维度更多元。", body_font, LH, indent=IND)
+flow.para("最后，叶枫表示，教育是一场久久为功的修行。未来他将始终坚守教育初心，紧跟教育发展步伐，不断精进教学能力、更新教育理念，以匠心育人、以初心笃行，在平凡的教育岗位上深耕不辍，助力每一位学生向阳成长，为教育事业高质量发展贡献微薄之力。", body_font, LH, indent=IND)
+flow.para("作者：郭沐鑫、何泰逸、胡诚杰、施宝华、谈宸铠、徐宸灏、张轶善", fnt("NotoSansSC-Regular", 21), LH, indent=0, justify=False, fill=GRAY, after=8)
 
 footer(d1, 1)
 img1.save(f"{ROOT}/欣竹文化报-第1版.png")
@@ -456,18 +465,16 @@ COL_TOP2 = y2
 COL_BOT2 = H - MB - 120
 
 flow2 = Flow(d2, img2, COL_TOP2, COL_BOT2)
-body_font2 = fnt("NotoSansSC-Regular", 30)
-LH2 = 48
-IND2 = 72
-author_font2 = fnt("NotoSansSC-Regular", 26)
+body_font2 = fnt("NotoSansSC-Regular", 24)
+LH2 = 37
+IND2 = 66
+author_font2 = fnt("NotoSansSC-Regular", 21)
 
 # —— 文章一（头条）：十佳歌手大赛报道
 article_head(d2, flow2, "校园歌声绽芳华　青春逐梦展风采", "——我校十佳歌手大赛圆满落幕")
 right_text(d2, flow2.y, "校园记者站 综合报道", author_font2, GRAY)
 flow2.y += 52
 flow2.top = flow2.y  # 右栏从报头下方起排
-
-flow2.image(SINGER, col1_x + COLW - 390, flow2.y + 400, 780, 660, "刘彦君与搭档在十佳歌手比赛现场同台演唱", CAP)
 
 flow2.para("近日，我校校园十佳歌手大赛顺利落下帷幕。全校热爱歌唱的学子齐聚舞台，以歌声传递青春力量，展现我校学子积极向上的精神风貌，丰富了校园文化生活。", body_font2, LH2, indent=IND2)
 flow2.para("比赛现场氛围热烈，掌声与欢呼声此起彼伏，观众互动积极，为参赛选手营造了良好的表演氛围。参赛选手精心筹备、从容登台，用饱满的状态完成演唱作品，一次次将赛场气氛推向高潮。", body_font2, LH2, indent=IND2)
@@ -476,8 +483,17 @@ flow2.para("与此同时，部分选手在比赛中经历了别样的备战过�
 flow2.para("据悉，校园十佳歌手大赛是我校经典校园文体活动，长期以来致力于为学子提供多元化的才艺展示渠道。本次活动不仅为同学们提供了绽放才华的舞台，更营造了积极健康、朝气蓬勃的校园文艺氛围，进一步丰富了校园文化内涵。", body_font2, LH2, indent=IND2)
 flow2.para("作者：严雨阳、戴语骏、郑天星、朱崇璟、潘若水、胡沐儒", author_font2, LH2, indent=0, justify=False, fill=GRAY, after=22)
 
+# —— 师者访谈：余丹丹
+section_label(d2, flow2, "师者 · 访谈")
+article_head(d2, flow2, "于细微处看见，于温暖中成长", "——专访余丹丹老师")
+flow2.para("“被看见”，是近来校园里的热门话题。在同学们心中，“被看见”代表着被尊重、被重视。那么站在教师的角度，教育里的“看见”究竟有着怎样的内涵？我们专访了余丹丹老师，聆听她对于教育中“看见”的理解。", body_font2, LH2, indent=IND2)
+flow2.para("谈及教育中的“被看见”，余老师给出了质朴的答案：看见每个学生的优点。在她看来，每个孩子身上都藏着独属于自己的闪光点，教育不是只用分数评判学生，而是善于发掘学生身上不一样的长处。", body_font2, LH2, indent=IND2)
+flow2.para("当问到“被看见”对中学生是否重要时，余老师十分肯定。青春期的学生内心敏感，非常渴望得到他人的关注与认可。一份及时的留意，一次真诚的肯定，都能给予学生前行的底气，帮助他们建立自信。", body_font2, LH2, indent=IND2)
+flow2.para("说起真正“看见”一名学生的瞬间，余老师印象最深的，是内向的学生鼓起勇气主动举手回答问题的时候。平日里安静腼腆的孩子愿意突破自我，这份勇敢格外珍贵。而这份发现，往往藏在日常点滴之中，比如课后留下来陪同学背课文，耐心陪伴、用心倾听，就是她“看见”学生的方式。", body_font2, LH2, indent=IND2)
+flow2.para("面对渴望被看见的同学们，余老师送上寄语：相信你自己。不是只有站在聚光灯下才算是被看见，不必等待别人来发现你的光芒。只要坚定相信自己，默默耕耘，你的努力与成长终会被看见。", body_font2, LH2, indent=IND2)
+flow2.para("教育的本质，就是一场温柔的看见。老师用心读懂每一位少年，让每一份不张扬的努力都不被辜负。", body_font2, LH2, indent=IND2)
+flow2.para("作者：柴雨轩、陈知行、王冠程、黄嘉睿、包晓妍、李玥瑶", author_font2, LH2, indent=0, justify=False, fill=GRAY, after=22)
 
-# —— 人物访谈：意外搭档（同版续完，右栏起排）
 section_label(d2, flow2, "人物 · 访谈")
 article_head(d2, flow2, "意外搭档下的歌唱舞台")
 flow2.para("聚光灯灼灼亮起，悠扬的歌声回荡舞台。众人所见的是从容演绎的精彩瞬间，却鲜有人知晓，这份光鲜背后藏着一段仓促波折、充满意外的备赛经历。校园十佳歌手比赛落幕后，我们采访了一位特殊的参赛选手——刘彦君，聆听她独一无二的舞台故事。", body_font2, LH2, indent=IND2)
@@ -487,28 +503,12 @@ flow2.para("纵使全程充满变数与遗憾，她依旧认真站上舞台，�
 flow2.para("璀璨舞台从来不只有鲜花与掌声，更藏着少年不为人知的纠结、磨合与坚持。这场充满意外的合唱之旅褪去了舞台的滤镜，让我们看见：青春赛场从不是一帆风顺的完美演绎，那些突如其来的考验、仓促奔赴的成长，亦是舞台最动人的底色。", body_font2, LH2, indent=IND2)
 flow2.para("作者：黄昕甜、陈艺嘉、王怡蓓、王博嘉、王睿琪、严茹萱", author_font2, LH2, indent=0, justify=False, fill=GRAY, after=14)
 
-footer(d2, 2)
-img2.save(f"{ROOT}/欣竹文化报-第2版.png")
-
-# ================= 第 3 版 =================
-img3 = Image.new("RGB", (W, H), "white")
-d3 = ImageDraw.Draw(img3)
-
-y3 = page_label(d3, MT, "第 3 版 · 访谈 纪实")
-
-flow3 = Flow(d3, img3, y3, COL_BOT2)
-body_font3 = fnt("NotoSansSC-Regular", 30)
-LH3 = 48
-IND3 = 72
-author_font3 = fnt("NotoSansSC-Regular", 26)
-q_font3 = fnt("NotoSansSC-Bold", 30)
-
 # —— 文章：评委问答（十佳歌手活动）
-section_label(d3, flow3, "现场 · 问答")
-article_head(d3, flow3, "丰富校园生活，展现青春风采", "——我校成功开展“校园十佳歌手”活动")
-flow3.para("为丰富校园文化生活，提升学生综合素养，营造积极向上的校园氛围，近日，我校顺利开展“校园十佳歌手”活动。六七八年级师生积极参与，活动现场秩序井然、气氛热烈。", body_font3, LH3, indent=IND3)
-flow3.para("活动前期，学校精心策划、周密部署，明确活动流程与分工，为本次活动顺利开展奠定了良好的基础。活动过程中，同学们积极参与，精神饱满、投入。各评委老师，评分公平公正。大家在竞歌中体验乐趣，在实践中收获成长，充分体现出新时代中学生朝气蓬勃、团结进取的良好精神风貌。", body_font3, LH3, indent=IND3)
-flow3.para("为进一步获得本次活动信息，我团队特别采访了一位评委老师，采访结果如下：", body_font3, LH3, indent=IND3)
+section_label(d2, flow2, "现场 · 问答")
+article_head(d2, flow2, "丰富校园生活，展现青春风采", "——我校成功开展“校园十佳歌手”活动")
+flow2.para("为丰富校园文化生活，提升学生综合素养，营造积极向上的校园氛围，近日，我校顺利开展“校园十佳歌手”活动。六七八年级师生积极参与，活动现场秩序井然、气氛热烈。", body_font2, LH2, indent=IND2)
+flow2.para("活动前期，学校精心策划、周密部署，明确活动流程与分工，为本次活动顺利开展奠定了良好的基础。活动过程中，同学们积极参与，精神饱满、投入。各评委老师，评分公平公正。大家在竞歌中体验乐趣，在实践中收获成长，充分体现出新时代中学生朝气蓬勃、团结进取的良好精神风貌。", body_font2, LH2, indent=IND2)
+flow2.para("为进一步获得本次活动信息，我团队特别采访了一位评委老师，采访结果如下：", body_font2, LH2, indent=IND2)
 QA = [
     ("问：您认为学生参与“十佳歌手”活动有什么意义？",
      "答：丰富校园生活，鼓励学生积极参与艺术活动，增加了学生的胆识和表现，是很有意义的一项活动。"),
@@ -521,61 +521,15 @@ QA = [
     ("问：您认为办理这种活动，对教职工来说会很麻烦吗？",
      "答：在准备活动时或许要做很多事，投入时间，但丰富校园生活是很重要的，同学和教职工也应该在课余时间多参与艺术性活动。"),
 ]
-q_font3 = fnt("NotoSansSC-Bold", 30)
+q_font2 = fnt("NotoSansSC-Bold", 24)
 for q, a in QA:
-    flow3.para(q, q_font3, LH3, indent=0, after=30, justify=True, fill=GREEN_D)
-    flow3.para_card(a, body_font3, LH3, indent=IND3, after=40, band=GREEN_L, bar=GREEN_M, vpad=14, band_in=16)
-flow3.para("据采访可知，本次活动不仅丰富了同学们的课余生活，缓解了学习压力，更是得到了各教职工的支持。教发部也发布消息，表明我校于十月份会继续开展校艺体节活动，打造活力满满的文明校园。", body_font3, LH3, indent=IND3)
-flow3.para("作者：刘子晴、姜嘉悦、张嘉琦、肖凡非、熊泽楷、李沛霖", author_font3, LH3, indent=0, justify=False, fill=GRAY, after=14)
+    flow2.para(q, q_font2, LH2, indent=0, after=30, justify=True, fill=GREEN_D)
+    flow2.para_card(a, body_font2, LH2, indent=IND2, after=40, band=GREEN_L, bar=GREEN_M, vpad=14, band_in=16)
+flow2.para("据采访可知，本次活动不仅丰富了同学们的课余生活，缓解了学习压力，更是得到了各教职工的支持。教发部也发布消息，表明我校于十月份会继续开展校艺体节活动，打造活力满满的文明校园。", body_font2, LH2, indent=IND2)
+flow2.para("作者：刘子晴、姜嘉悦、张嘉琦、肖凡非、熊泽楷、李沛霖", author_font2, LH2, indent=0, justify=False, fill=GRAY, after=14)
 
-# —— 师者访谈：余丹丹
-section_label(d3, flow3, "师者 · 访谈")
-article_head(d3, flow3, "于细微处看见，于温暖中成长", "——专访余丹丹老师")
-flow3.para("“被看见”，是近来校园里的热门话题。在同学们心中，“被看见”代表着被尊重、被重视。那么站在教师的角度，教育里的“看见”究竟有着怎样的内涵？我们专访了余丹丹老师，聆听她对于教育中“看见”的理解。", body_font3, LH3, indent=IND3)
-flow3.para("谈及教育中的“被看见”，余老师给出了质朴的答案：看见每个学生的优点。在她看来，每个孩子身上都藏着独属于自己的闪光点，教育不是只用分数评判学生，而是善于发掘学生身上不一样的长处。", body_font3, LH3, indent=IND3)
-flow3.para("当问到“被看见”对中学生是否重要时，余老师十分肯定。青春期的学生内心敏感，非常渴望得到他人的关注与认可。一份及时的留意，一次真诚的肯定，都能给予学生前行的底气，帮助他们建立自信。", body_font3, LH3, indent=IND3)
-flow3.para("说起真正“看见”一名学生的瞬间，余老师印象最深的，是内向的学生鼓起勇气主动举手回答问题的时候。平日里安静腼腆的孩子愿意突破自我，这份勇敢格外珍贵。而这份发现，往往藏在日常点滴之中，比如课后留下来陪同学背课文，耐心陪伴、用心倾听，就是她“看见”学生的方式。", body_font3, LH3, indent=IND3)
-flow3.para("面对渴望被看见的同学们，余老师送上寄语：相信你自己。不是只有站在聚光灯下才算是被看见，不必等待别人来发现你的光芒。只要坚定相信自己，默默耕耘，你的努力与成长终会被看见。", body_font3, LH3, indent=IND3)
-flow3.para("教育的本质，就是一场温柔的看见。老师用心读懂每一位少年，让每一份不张扬的努力都不被辜负。", body_font3, LH3, indent=IND3)
-flow3.para("作者：柴雨轩、陈知行、王冠程、黄嘉睿、包晓妍、李玥瑶", author_font3, LH3, indent=0, justify=False, fill=GRAY, after=14)
+footer(d2, 2)
+img2.save(f"{ROOT}/欣竹文化报-第2版.png")
 
-footer(d3, 3)
-img3.save(f"{ROOT}/欣竹文化报-第3版.png")
-
-# ================= 第 4 版 =================
-img4 = Image.new("RGB", (W, H), "white")
-d4 = ImageDraw.Draw(img4)
-
-y4 = page_label(d4, MT, "第 4 版 · 师者 访谈")
-
-flow4 = Flow(d4, img4, y4, COL_BOT2)
-body_font4 = fnt("NotoSansSC-Regular", 30)
-LH4 = 48
-IND4 = 72
-
-# —— 师者访谈：叶枫（大字号人物特写版式）
-section_label(d4, flow4, "师者 · 访谈")
-article_head(d4, flow4, "深耕教育沃土　坚守育人初心", "——专访教育工作者叶枫")
-flow4.para("近日，深耕教育领域多年的教育工作者叶枫，结合自身多年任职经历，分享了从教路上的成长感悟、思想蜕变，以及对新时代教育发展的独到见解，娓娓讲述自己与教育相伴的温暖历程与责任担当。", body_font4, LH4, indent=IND4)
-flow4.para("谈及任职期间影响自己最深的人和事，叶枫眼中满是温情。他表示，教育从来不是孤军奋战，一代代教育前辈的坚守与一届届学生的成长，是他深耕教育的不竭动力。从业初期，身边资深教师深耕课堂、潜心育人，不放弃任何一名学生，耐心打磨教学细节、用心陪伴学生成长，这份纯粹的教育初心深深感染了他。同时，无数学生的蜕变也让他备受触动。看着懵懂孩童在引导下明事理、学本领，成长为有担当、有温度的少年，这些温暖瞬间不断坚定他扎根教育、默默奉献的信念，让他始终心怀热爱、步履不停。", body_font4, LH4, indent=IND4)
-# 金句拉排
-flow4.para("“既做知识的传授者，更做学生成长的引导者、陪伴者和守护者。”",
-           fnt("NotoSansSC-Bold", 36), 64, indent=0, justify=False, fill=GREEN_D, after=36)
-flow4.para("历经多年深耕，谈及对教育工作认知的变化，叶枫坦言自己完成了从“教书”到“育人”的深度蜕变。初入教育行业时，他更多聚焦于课堂教学、知识传授，以提升教学质量、夯实学生学业基础为核心目标。随着任职年限增长、教学经验积累，他深刻认识到，教育的本质是立德树人。知识传授只是基础，更重要的是塑造学生健全人格、培养良好品德、锤炼综合素养。如今的他，在教学中兼顾因材施教，尊重学生个性差异，注重激发学生潜能，既做知识的传授者，更做学生成长的引导者、陪伴者和守护者。", body_font4, LH4, indent=IND4)
-flow4.para("针对近年来我国教育体系的快速发展，叶枫有着切身且深刻的体会。他表示，新时代教育实现了全方位、高质量的升级，变化看得见、摸得着。首先是教育资源愈发均衡，城乡教育差距持续缩小，优质师资、线上课程、智慧设备逐步普及基层校园，让每个孩子都能享有公平而有质量的教育。其次，教育理念持续革新，素质教育全面落地，摒弃唯分数论，注重德智体美劳全面发展，更加契合新时代人才培养需求。此外，教育数字化转型成效显著，智慧课堂、多媒体教学融入日常教学，让教学形式更丰富、育人维度更多元。", body_font4, LH4, indent=IND4)
-flow4.para("最后，叶枫表示，教育是一场久久为功的修行。未来他将始终坚守教育初心，紧跟教育发展步伐，不断精进教学能力、更新教育理念，以匠心育人、以初心笃行，在平凡的教育岗位上深耕不辍，助力每一位学生向阳成长，为教育事业高质量发展贡献微薄之力。", body_font4, LH4, indent=IND4)
-flow4.para("“教育是一场久久为功的修行。”",
-           fnt("NotoSansSC-Bold", 36), 64, indent=0, justify=False, fill=GREEN_D, after=36)
-flow4.para("作者：郭沐鑫、何泰逸、胡诚杰、施宝华、谈宸铠、徐宸灏、张轶善", fnt("NotoSansSC-Regular", 26), LH4, indent=0, justify=False, fill=GRAY, after=14)
-
-flow4.box("编后小语", [
-    "从奔跑的赛场到放声的歌台，青春的姿态有千百种，热爱与成长是共同的注脚。愿每位欣竹学子都能在自己的舞台上发光。",
-], fnt("NotoSansSC-Regular", 28), 68, fnt("NotoSansSC-Bold", 30), pad=48, bg=(251, 246, 236), border=GOLD)
-
-footer(d4, 4)
-img4.save(f"{ROOT}/欣竹文化报-第4版.png")
-
-print("page1 max_y =", flow.max_y, " bottom =", H - MB - 50)
-print("page2 max_y =", flow2.max_y, " bottom =", COL_BOT2)
-print("page3 max_y =", flow3.max_y, " bottom =", COL_BOT2)
-print("page4 max_y =", flow4.max_y, " bottom =", COL_BOT2)
+print("page1 max_y =", flow.max_y, " bottom =", H - MB - 60)
+print("page2 max_y =", flow2.max_y)
