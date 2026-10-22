@@ -101,28 +101,22 @@ class Flow:
         if self.col > 1:
             raise RuntimeError("版面溢出：两栏排不下")
 
-    def image(self, path, x0, y0, w, photo_h, cap, cap_font):
-        """跨栏图片：文字绕排，四周留出间距；先按目标比例居中裁剪，绝不拉伸变形"""
-        total_h = photo_h + 68
+    def image(self, path, x0, y0, max_w, max_h, cap, cap_font):
+        """整图等比缩放入框：不裁剪、不拉伸，取 max_w/max_h 的紧约束；返回实际总高(图+图注)"""
+        src = Image.open(path).convert("RGB")
+        scale = min(max_w / src.width, max_h / src.height)
+        w = int(src.width * scale)
+        h = int(src.height * scale)
+        photo = src.resize((w, h), Image.LANCZOS)
+        total_h = h + 68
         self.obstructions.append((x0 - IMG_PAD_X, y0 - IMG_PAD_Y,
                                   x0 + w + IMG_PAD_X, y0 + total_h + IMG_PAD_Y))
-        src = Image.open(path).convert("RGB")
-        target_ratio = w / photo_h
-        src_ratio = src.width / src.height
-        if src_ratio > target_ratio:    # 太宽，裁左右
-            new_w = int(src.height * target_ratio)
-            left = (src.width - new_w) // 2
-            src = src.crop((left, 0, left + new_w, src.height))
-        else:                           # 太高，裁上下（取中上段，保住主体）
-            new_h = int(src.width / target_ratio)
-            top = max(0, (src.height - new_h) // 3)
-            src = src.crop((0, top, src.width, top + new_h))
-        photo = src.resize((w, photo_h), Image.LANCZOS)
         self.img.paste(photo, (x0, y0))
-        self.d.rectangle([x0, y0, x0 + w, y0 + photo_h], outline=(205, 205, 205), width=1)
+        self.d.rectangle([x0, y0, x0 + w, y0 + h], outline=(205, 205, 205), width=1)
         for i, line in enumerate(self._wrap(cap, cap_font, w - 8)):
             lw = text_w(cap_font, line)
-            self.d.text((x0 + (w - lw) / 2, y0 + photo_h + 10 + i * 31), line, font=cap_font, fill=GRAY)
+            self.d.text((x0 + (w - lw) / 2, y0 + h + 10 + i * 31), line, font=cap_font, fill=GRAY)
+        return total_h
 
     # 避头尾：行首不出现句读标点，行尾不出现开括号/引号
     NO_LINE_START = set("，。、；：？！…—·」』）》】％")
@@ -407,7 +401,7 @@ y = page_label(d1, y, "第 1 版 · 校园新闻")
 
 flow = Flow(d1, img1, y, H - MB - 50)
 body_font = fnt("NotoSansSC-Regular", 24)
-LH = 37
+LH = 36
 IND = 66  # 段首空两格
 
 # —— 文章一（主稿）：抢零食大赛
@@ -418,8 +412,8 @@ flow.top = flow.y  # 右栏从报头下方起排，避免压到署名行
 
 # 两张绕栏图跨两栏中缝，一上一下，中间留白隔开
 _img_y0 = flow.y
-flow.image(PHOTO1, col1_x + COLW - 280, _img_y0 + 120, 560, 254, "起跑冲刺，同学们蓄势待发", CAP)
-flow.image(PHOTO3, col1_x + COLW - 280, _img_y0 + 120 + 254 + 68 + 20, 560, 219, "班主任老师为参赛同学递上零食", CAP)
+_ph1_total = flow.image(PHOTO1, col1_x + COLW - 150, _img_y0 + 90, 300, 300, "起跑冲刺，同学们蓄势待发", CAP)
+flow.image(PHOTO3, col1_x + COLW - 150, _img_y0 + 90 + _ph1_total + 16, 300, 300, "班主任老师为参赛同学递上零食", CAP)
 
 flow.para("为进一步丰富在校师生的课余文化生活，营造轻松鲜活的校园氛围，10月8日下午，由我校体育组主办的“乐动比赛日”主题活动核心项目——“抢零食大赛”在我校操场正式拉开帷幕，240名来自四个年级的初中学生报名参赛，活动现场欢声笑语不断，成为秋日校园里一道独特的活力风景线。", body_font, LH, indent=IND)
 flow.para("本次大赛跳出传统文体赛事的固有框架，以“释放压力、共享欢乐”为核心设计理念，契合“乐动比赛日”让学生走下座位、动起来玩起来的活动定位。比赛分为四轮，各个年级各比赛一轮，活动现场的参赛区域内，每轮会放置各类零食放置在操场中央，各班班主任老师与学生配合，由老师传递零食，学生们接力运送零食来争取获得更多的零食数目。最后在各年级之间决出胜负。各班获得的零食也能带回班级与同学们分享。", body_font, LH, indent=IND)
@@ -438,7 +432,7 @@ flow.para("比赛过程中，同学们尽情投入，尽显少年活力。各班
 flow.para("短短几分钟的比拼转瞬即逝，在裁判老师公正的统计下，本次抢零食大战落下帷幕，多个班级凭借高效的协作和良好的秩序斩获佳绩。赛后，参赛同学们手持满满的“战利品”，脸上洋溢着灿烂的笑容。大家相互分享零食、交流比赛趣事，校园里处处洋溢着温馨欢乐的氛围。有同学表示，这场特别的零食大战，不仅收获了美味的零食，更在轻松的游戏中放松了身心，增进了和同学之间的情谊。", body_font, LH, indent=IND)
 flow.para("本次抢零食趣味赛事，是我校落实素质教育、打造多彩校园生活的生动缩影。没有激烈的竞技压力，却有满满的快乐与温暖，既锻炼了同学们的反应能力与协作能力，又有效舒缓了学业压力。相信同学们将带着赛场收获的快乐与活力，以更饱满的热情、更昂扬的状态投入到今后的学习生活中，不负时光，向阳成长。", body_font, LH, indent=IND)
 # 署名行避开中缝图片，避免在窄栏里折出孤字
-_cover_bottom = _img_y0 + 120 + 254 + 68 + 20 + 219 + 68 + 17
+_cover_bottom = _img_y0 + 90 + _ph1_total + 16 + 368 + 17
 if flow.col == 1 and flow.y < _cover_bottom:
     flow.y = _cover_bottom + 4
 flow.para("作者：王怡蓓、严茹萱、陈艺嘉、黄昕甜、王睿琪、王博嘉", fnt("NotoSansSC-Regular", 21), LH, indent=0, justify=False, fill=GRAY, after=8)
@@ -467,7 +461,7 @@ COL_BOT2 = H - MB - 120
 
 flow2 = Flow(d2, img2, COL_TOP2, COL_BOT2)
 body_font2 = fnt("NotoSansSC-Regular", 24)
-LH2 = 37
+LH2 = 36
 IND2 = 66
 author_font2 = fnt("NotoSansSC-Regular", 21)
 
