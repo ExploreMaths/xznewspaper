@@ -407,7 +407,7 @@ y = page_label(d1, y, "第 1 版 · 校园 活动")
 
 flow = Flow(d1, img1, y, H - MB - 50)
 body_font = fnt("NotoSansSC-Regular", 30)
-LH = 49
+LH = 48
 IND = 72  # 段首空两格
 
 # —— 文章一（主稿）：抢零食大赛
@@ -456,10 +456,10 @@ COL_TOP2 = y2
 COL_BOT2 = H - MB - 120
 
 flow2 = Flow(d2, img2, COL_TOP2, COL_BOT2)
-body_font2 = fnt("NotoSansSC-Regular", 44)
-LH2 = 65
-IND2 = 104
-author_font2 = fnt("NotoSansSC-Regular", 28)
+body_font2 = fnt("NotoSansSC-Regular", 30)
+LH2 = 48
+IND2 = 72
+author_font2 = fnt("NotoSansSC-Regular", 26)
 
 # —— 文章一（头条）：十佳歌手大赛报道
 article_head(d2, flow2, "校园歌声绽芳华　青春逐梦展风采", "——我校十佳歌手大赛圆满落幕")
@@ -497,11 +497,11 @@ d3 = ImageDraw.Draw(img3)
 y3 = page_label(d3, MT, "第 3 版 · 访谈 纪实")
 
 flow3 = Flow(d3, img3, y3, COL_BOT2)
-body_font3 = fnt("NotoSansSC-Regular", 42)
-LH3 = 60
-IND3 = 100
+body_font3 = fnt("NotoSansSC-Regular", 30)
+LH3 = 48
+IND3 = 72
 author_font3 = fnt("NotoSansSC-Regular", 26)
-q_font3 = fnt("NotoSansSC-Bold", 32)
+q_font3 = fnt("NotoSansSC-Bold", 30)
 
 # —— 文章：评委问答（十佳歌手活动）
 section_label(d3, flow3, "现场 · 问答")
@@ -521,7 +521,7 @@ QA = [
     ("问：您认为办理这种活动，对教职工来说会很麻烦吗？",
      "答：在准备活动时或许要做很多事，投入时间，但丰富校园生活是很重要的，同学和教职工也应该在课余时间多参与艺术性活动。"),
 ]
-q_font3 = fnt("NotoSansSC-Bold", 32)
+q_font3 = fnt("NotoSansSC-Bold", 30)
 for q, a in QA:
     flow3.para(q, q_font3, LH3, indent=0, after=30, justify=True, fill=GREEN_D)
     flow3.para_card(a, body_font3, LH3, indent=IND3, after=40, band=GREEN_L, bar=GREEN_M, vpad=14, band_in=16)
@@ -549,9 +549,9 @@ d4 = ImageDraw.Draw(img4)
 y4 = page_label(d4, MT, "第 4 版 · 师者 访谈")
 
 flow4 = Flow(d4, img4, y4, COL_BOT2)
-body_font4 = fnt("NotoSansSC-Regular", 48)
-LH4 = 72
-IND4 = 108
+body_font4 = fnt("NotoSansSC-Regular", 30)
+LH4 = 48
+IND4 = 72
 
 # —— 师者访谈：叶枫（大字号人物特写版式）
 section_label(d4, flow4, "师者 · 访谈")
@@ -560,13 +560,13 @@ flow4.para("近日，深耕教育领域多年的教育工作者叶枫，结合�
 flow4.para("谈及任职期间影响自己最深的人和事，叶枫眼中满是温情。他表示，教育从来不是孤军奋战，一代代教育前辈的坚守与一届届学生的成长，是他深耕教育的不竭动力。从业初期，身边资深教师深耕课堂、潜心育人，不放弃任何一名学生，耐心打磨教学细节、用心陪伴学生成长，这份纯粹的教育初心深深感染了他。同时，无数学生的蜕变也让他备受触动。看着懵懂孩童在引导下明事理、学本领，成长为有担当、有温度的少年，这些温暖瞬间不断坚定他扎根教育、默默奉献的信念，让他始终心怀热爱、步履不停。", body_font4, LH4, indent=IND4)
 # 金句拉排
 flow4.para("“既做知识的传授者，更做学生成长的引导者、陪伴者和守护者。”",
-           fnt("NotoSansSC-Bold", 52), 92, indent=0, justify=False, fill=GREEN_D, after=36)
+           fnt("NotoSansSC-Bold", 36), 64, indent=0, justify=False, fill=GREEN_D, after=36)
 flow4.para("历经多年深耕，谈及对教育工作认知的变化，叶枫坦言自己完成了从“教书”到“育人”的深度蜕变。初入教育行业时，他更多聚焦于课堂教学、知识传授，以提升教学质量、夯实学生学业基础为核心目标。随着任职年限增长、教学经验积累，他深刻认识到，教育的本质是立德树人。知识传授只是基础，更重要的是塑造学生健全人格、培养良好品德、锤炼综合素养。如今的他，在教学中兼顾因材施教，尊重学生个性差异，注重激发学生潜能，既做知识的传授者，更做学生成长的引导者、陪伴者和守护者。", body_font4, LH4, indent=IND4)
 flow4.para("针对近年来我国教育体系的快速发展，叶枫有着切身且深刻的体会。他表示，新时代教育实现了全方位、高质量的升级，变化看得见、摸得着。首先是教育资源愈发均衡，城乡教育差距持续缩小，优质师资、线上课程、智慧设备逐步普及基层校园，让每个孩子都能享有公平而有质量的教育。其次，教育理念持续革新，素质教育全面落地，摒弃唯分数论，注重德智体美劳全面发展，更加契合新时代人才培养需求。此外，教育数字化转型成效显著，智慧课堂、多媒体教学融入日常教学，让教学形式更丰富、育人维度更多元。", body_font4, LH4, indent=IND4)
 flow4.para("最后，叶枫表示，教育是一场久久为功的修行。未来他将始终坚守教育初心，紧跟教育发展步伐，不断精进教学能力、更新教育理念，以匠心育人、以初心笃行，在平凡的教育岗位上深耕不辍，助力每一位学生向阳成长，为教育事业高质量发展贡献微薄之力。", body_font4, LH4, indent=IND4)
 flow4.para("“教育是一场久久为功的修行。”",
-           fnt("NotoSansSC-Bold", 52), 92, indent=0, justify=False, fill=GREEN_D, after=36)
-flow4.para("作者：郭沐鑫、何泰逸、胡诚杰、施宝华、谈宸铠、徐宸灏、张轶善", fnt("NotoSansSC-Regular", 28), LH4, indent=0, justify=False, fill=GRAY, after=14)
+           fnt("NotoSansSC-Bold", 36), 64, indent=0, justify=False, fill=GREEN_D, after=36)
+flow4.para("作者：郭沐鑫、何泰逸、胡诚杰、施宝华、谈宸铠、徐宸灏、张轶善", fnt("NotoSansSC-Regular", 26), LH4, indent=0, justify=False, fill=GRAY, after=14)
 
 flow4.box("编后小语", [
     "从奔跑的赛场到放声的歌台，青春的姿态有千百种，热爱与成长是共同的注脚。愿每位欣竹学子都能在自己的舞台上发光。",
